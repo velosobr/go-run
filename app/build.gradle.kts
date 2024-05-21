@@ -37,11 +37,42 @@ android {
 
 dependencies {
 
-    implementation("androidx.core:core-ktx:1.13.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    // Coil
+    implementation(libs.coil.compose)
+
+    // Compose
+    implementation(libs.androidx.activity.compose)
+    implementation(libs.androidx.material.icons.extended)
+    implementation(libs.androidx.compose.ui)
+    implementation(libs.androidx.compose.ui.graphics)
+    implementation(libs.androidx.compose.ui.tooling.preview)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.lifecycle.runtime.compose)
+    implementation(libs.androidx.navigation.compose)
+
+    // Core
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+
+    // Crypto
+    implementation(libs.androidx.security.crypto.ktx)
+
+    api(libs.core)
+    implementation(libs.androidx.compose.material3)
+
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    debugImplementation(libs.androidx.compose.ui.tooling)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+    // Location
+    implementation(libs.google.android.gms.play.services.location)
+
+    // Splash screen
+    implementation(libs.androidx.core.splashscreen)
+
+    // Timber
+    implementation(libs.timber)
 }
