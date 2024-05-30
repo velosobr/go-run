@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.7" />
+    <bytecodeTargetLevel target="1.7">
+      <module name="Go_Run.app" target="17" />
+      <module name="Go_Run.auth.data" target="17" />
+      <module name="Go_Run.auth.presentation" target="17" />
+      <module name="Go_Run.core.data" target="17" />
+      <module name="Go_Run.core.database" target="17" />
+      <module name="Go_Run.core.presentation.designsystem" target="17" />
+      <module name="Go_Run.core.presentation.ui" target="17" />
+      <module name="Go_Run.run.data" target="17" />
+      <module name="Go_Run.run.location" target="17" />
+      <module name="Go_Run.run.network" target="17" />
+      <module name="Go_Run.run.presentation" target="17" />
+    </bytecodeTargetLevel>
   </component>
 </project>

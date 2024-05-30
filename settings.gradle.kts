@@ -13,7 +13,8 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Go Run"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+rootProject.name = "GoRun"
 include(":app")
 include(":auth:data")
 include(":auth:domain")
