@@ -1,8 +1,8 @@
 import com.android.build.api.dsl.ApplicationExtension
+import com.velosobr.convention.configureKotlinAndroid
 import com.velosobr.convention.libs
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.configuration.internal.UserCodeApplicationContext.Application
 import org.gradle.kotlin.dsl.configure
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
@@ -16,11 +16,14 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             extensions.configure<ApplicationExtension> {
                 defaultConfig {
                     applicationId = libs.findVersion("projectApplicationId").get().toString()
+                    targetSdk = libs.findVersion("projectTargetSdkVersion").get().toString().toInt()
 
                     versionCode = libs.findVersion("projectVersionCode").get().toString().toInt()
-
-                    versionName = libs.findVersion("projectversionName").get().toString()
+                    versionName = libs.findVersion("projectVersionName").get().toString()
                 }
+
+                configureKotlinAndroid(this)
+
             }
         }
     }
