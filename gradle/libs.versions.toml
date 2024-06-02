@@ -123,3 +123,4 @@ mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.
 
 gorun-android-application = { id = "gorun.android.application", version = "unspecified" }
 gorun-android-application-compose = { id = "gorun.android.application.compose", version = "unspecified" }
+gorun-android-library = { id = "gorun.android.library", version = "unspecified" }
