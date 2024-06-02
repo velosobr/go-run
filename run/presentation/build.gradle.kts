@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.velosobr.rimpresentation"
+    namespace = "com.velosobr.run.presentation"
     compileSdk = 34
 
     defaultConfig {
