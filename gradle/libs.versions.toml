@@ -122,3 +122,4 @@ androidDynamicFeature = { id = "com.android.dynamic-feature", version.ref = "agp
 mapsplatform-secrets-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "secretsPlugin" }
 
 gorun-android-application = { id = "gorun.android.application", version = "unspecified" }
+gorun-android-application-compose = { id = "gorun.android.application.compose", version = "unspecified" }
