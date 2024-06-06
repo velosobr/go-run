@@ -125,6 +125,7 @@ gorun-android-application = { id = "gorun.android.application", version = "unspe
 gorun-android-application-compose = { id = "gorun.android.application.compose", version = "unspecified" }
 gorun-android-library = { id = "gorun.android.library", version = "unspecified" }
 gorun-android-library-compose = { id = "gorun.android.library.compose", version = "unspecified" }
+gorun-android-feature-ui = { id = "gorun.android.feature.ui", version = "unspecified" }
 
 [bundles]
 compose = [

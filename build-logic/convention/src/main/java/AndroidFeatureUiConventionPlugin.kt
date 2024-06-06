@@ -1,4 +1,5 @@
 import com.android.build.api.dsl.LibraryExtension
+import com.velosobr.convention.addUiLayerDependencies
 import com.velosobr.convention.configureAndroidCompose
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -11,9 +12,9 @@ class AndroidFeatureUiConventionPlugin : Plugin<Project> {
             pluginManager.run {
                 apply("gorun.android.library.compose")
             }
-          dependencies{
-
-          }
+            dependencies {
+                addUiLayerDependencies(target)
+            }
         }
     }
 }
