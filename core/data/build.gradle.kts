@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.gorun.android.library)
+    alias(libs.plugins.gorun.jvm.ktor)
+
 }
 
 android {

@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.gorun.android.application.compose)
+    alias(libs.plugins.gorun.jvm.ktor)
     alias(libs.plugins.mapsplatform.secrets.plugin)
 }
 
