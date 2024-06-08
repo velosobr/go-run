@@ -97,7 +97,7 @@ timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 google-maps-android-compose = { module = "com.google.maps.android:maps-compose", version.ref = "maps" }
-google-android-gms-play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "gmsLocation" }
+google-android-gms-play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "gmsLocation"}
 org-mongodb-bson = { module = "org.mongodb:bson", version.ref = "bson" }
 play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 google-maps-android-utils-ktx = { module = "com.google.maps.android:maps-utils-ktx", version.ref = "mapsUtils" }
