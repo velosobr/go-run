@@ -19,6 +19,7 @@ sealed interface DataError: Error {
         DATABASE_ERROR,
         DISK_FULL,
         NO_DATA,
+        NO_PERMISSION,
         UNKNOWN
     }
 }
