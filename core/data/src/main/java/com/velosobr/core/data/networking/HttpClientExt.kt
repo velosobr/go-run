@@ -5,8 +5,14 @@ import com.velosobr.core.domain.util.DataError
 import com.velosobr.core.domain.util.Result
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.request.delete
+import io.ktor.client.request.parameter
 import io.ktor.client.statement.HttpResponse
-import io.ktor.server.util.url
+import io.ktor.client.request.get
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
+import io.ktor.client.request.url
+import io.ktor.http.cio.Response
 import kotlinx.coroutines.CancellationException
 import kotlinx.serialization.SerializationException
 import java.nio.channels.UnresolvedAddressException
@@ -20,6 +26,28 @@ suspend inline fun <reified Response : Any> HttpClient.get(
             queryParameters.forEach { (key, value) ->
                 parameter(key, value)
             }
+        }
+    }
+}
+suspend inline fun <reified Response : Any> HttpClient.delete(
+    route: String, queryParameters: Map<String, Any?> = mapOf()
+): Result<Response, DataError.NetworkError> {
+    return safeCall {
+        delete {
+            url(constructRoute(route))
+            queryParameters.forEach { (key, value) ->
+                parameter(key, value)
+            }
+        }
+    }
+}
+suspend inline fun <reified Request : Any> HttpClient.post(
+    route: String, body: Request
+): Result<Response, DataError.NetworkError> {
+    return safeCall {
+        post {
+            url(constructRoute(route))
+            setBody(body)
         }
     }
 }
