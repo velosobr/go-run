@@ -6,12 +6,17 @@ sealed interface DataError: Error {
         NO_INTERNET_CONNECTION,
         NO_RESPONSE,
         REQUEST_TIMEOUT,
-        CONFILCT,
+        CONFLICT,
         TOO_MANY_REQUESTS,
         PAYLOAD_TOO_LARGE,
         SERVER_ERROR,
         SERIALIZATION,
         UNAUTHORIZED,
+        FORBIDDEN,
+        NOT_IMPLEMENTED,
+        BAD_GATEWAY,
+        SERVICE_UNAVAILABLE,
+        GATEWAY_TIMEOUT,
         UNKNOWN
     }
 
