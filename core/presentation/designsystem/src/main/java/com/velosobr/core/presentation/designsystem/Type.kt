@@ -50,7 +50,7 @@ val Typography = Typography(
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp,
         lineHeight = 24.sp,
-        letterSpacing = 24.sp,
+        letterSpacing = 16.sp,
     ),
     labelLarge = TextStyle(
         fontFamily = Poppins,
