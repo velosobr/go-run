@@ -6,8 +6,7 @@ import com.velosobr.core.presentation.designsystem.GoRunTheme
 
 @Composable
 fun IntroScreenRoot(
-    onSignInClick: () -> Unit,
-    onSignUpClick: () -> Unit
+    onSignInClick: () -> Unit, onSignUpClick: () -> Unit
 ) {
     IntroScreen(onAction = { action ->
         when (action) {
@@ -15,6 +14,7 @@ fun IntroScreenRoot(
             IntroAction.OnSIgnUpCLick -> onSignUpClick()
         }
     }
+    )
 }
 
 @Composable
@@ -23,6 +23,7 @@ fun IntroScreen(
 ) {
     // TODO()
 }
+
 @Preview
 @Composable
 private fun IntroScreenPreview() {
