@@ -1,9 +1,14 @@
 package com.velosobr.core.presentation.designsystem.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,7 +27,38 @@ fun GradientBackground(
         configuration.screenWidthDp.dp.toPx()
     }
 
-    val smallDimension = minOf(configuration.screenWidthDp, configuration.screenHeightDp)
+    val smallDimension = minOf(
+        configuration.screenWidthDp.dp,
+        configuration.screenHeightDp.dp
+    )
+    val smallDimensionPx = with(density) {
+        smallDimension.roundToPx()
+    }
+    val primaryColor = MaterialTheme.colorScheme.primary
+
+    Box(
+        modifier = modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+    ){
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                      brush = Brush.radialGradient(
+                          colors = listOf(
+                              primaryColor,
+                              MaterialTheme.colorScheme.background
+                          ),
+                          center = Offset(
+                              x = screenWidthPx / 2,
+                                y = -100f
+                          ),
+                            radius = smallDimensionPx * 0.8f
+                      )
+                )
+        )
+    }
 }
 
 @Preview
