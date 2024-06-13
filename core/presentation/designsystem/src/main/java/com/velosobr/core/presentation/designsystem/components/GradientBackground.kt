@@ -1,9 +1,12 @@
 package com.velosobr.core.presentation.designsystem.components
 
+import android.os.Build
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -36,6 +39,7 @@ fun GradientBackground(
     }
     val primaryColor = MaterialTheme.colorScheme.primary
 
+    val isAtLeastAndroid12 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
     Box(
         modifier = modifier
             .fillMaxSize()
@@ -45,19 +49,32 @@ fun GradientBackground(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
-                      brush = Brush.radialGradient(
-                          colors = listOf(
-                              primaryColor,
-                              MaterialTheme.colorScheme.background
-                          ),
-                          center = Offset(
-                              x = screenWidthPx / 2,
-                                y = -100f
-                          ),
-                            radius = smallDimensionPx * 0.8f
-                      )
+                    brush = Brush.radialGradient(
+                        colors = listOf(
+                            primaryColor,
+                            MaterialTheme.colorScheme.background
+                        ),
+                        center = Offset(
+                            x = screenWidthPx / 2,
+                            y = -100f
+                        ),
+
+                        )
                 )
-        )
+        ){
+            Column(
+                modifier = Modifier.fillMaxSize()
+                    .then(
+                        if(hasToolbar){
+                            Modifier
+                        }else{
+                            Modifier.systemBarsPadding()
+                        }
+                    )
+            ) {
+                content()
+            }
+        }
     }
 }
 
