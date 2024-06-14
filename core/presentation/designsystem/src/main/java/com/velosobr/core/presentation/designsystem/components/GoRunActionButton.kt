@@ -1,5 +1,6 @@
 package com.velosobr.core.presentation.designsystem.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.IntrinsicSize
@@ -12,6 +13,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -42,7 +44,7 @@ fun GoRunActionButton(
             disabledContainerColor = GorunBlack
         ),
         shape = RoundedCornerShape(100f),
-        modifier = Modifier
+        modifier = modifier
             .height(IntrinsicSize.Min)
     ) {
         Box(
@@ -72,12 +74,53 @@ fun GoRunActionButton(
 
 }
 
-@Preview
 @Composable
-fun GoRunActionButtonPreview() {
-    GoRunActionButton(
-        text = "Sign In",
-        isLoading = false,
-        onClick = { /*TODO*/ }
-    )
+fun GoRunOutlinedActionButton(
+    text: String,
+    isLoading: Boolean,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    onClick: () -> Unit
+) {
+    OutlinedButton(
+        onClick = onClick,
+        enabled = enabled,
+
+        colors = ButtonDefaults.outlinedButtonColors(
+            contentColor = MaterialTheme.colorScheme.onBackground,
+        ),
+        border = BorderStroke(
+            width = 0.5.dp,
+            color = MaterialTheme.colorScheme.onBackground
+
+        ),
+
+        shape = RoundedCornerShape(100f),
+        modifier = modifier
+            .height(IntrinsicSize.Min)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            contentAlignment = androidx.compose.ui.Alignment.Center
+        ) {
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .size(16.dp)
+                    .alpha(if (isLoading) 1f else 0f),
+                strokeWidth = 1.5.dp,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+            Text(
+                text = text,
+                modifier = Modifier
+                    .alpha(if (isLoading) 0f else 1f),
+                fontWeight = FontWeight.Medium
+
+            )
+        }
+
+
+    }
 }
