@@ -21,6 +21,7 @@ import com.velosobr.auth.presentation.R
 import com.velosobr.core.presentation.designsystem.GoRunTheme
 import com.velosobr.core.presentation.designsystem.LogoIcon
 import com.velosobr.core.presentation.designsystem.components.GoRunActionButton
+import com.velosobr.core.presentation.designsystem.components.GoRunOutlinedActionButton
 import com.velosobr.core.presentation.designsystem.components.GradientBackground
 
 @Composable
@@ -66,6 +67,13 @@ fun IntroScreen(
                 style = MaterialTheme.typography.bodySmall
             )
             Spacer(modifier = Modifier.height(32.dp))
+            GoRunOutlinedActionButton(
+                text = stringResource(id = R.string.sign_in),
+                isLoading = false,
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { onAction(IntroAction.OnSignInClick) }
+            )
+            Spacer(modifier = Modifier.height(16.dp))
             GoRunActionButton(
                 text = stringResource(id = R.string.sign_up),
                 isLoading = false,
