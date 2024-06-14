@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="gorun">goRun\n</string>
+    <string name="welcome_to_gorun">Bem vindo ao Go Run\n</string>
+    <string name="welcome_description">Rastreie suas corridas, faça metas e conquiste suas metas através do nosso app.</string>
+    <string name="sign_up">Cadastrar</string>
 </resources>

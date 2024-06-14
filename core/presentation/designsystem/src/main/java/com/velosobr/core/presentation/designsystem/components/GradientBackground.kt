@@ -61,19 +61,18 @@ fun GradientBackground(
 
                         )
                 )
-        ){
-            Column(
-                modifier = Modifier.fillMaxSize()
-                    .then(
-                        if(hasToolbar){
-                            Modifier
-                        }else{
-                            Modifier.systemBarsPadding()
-                        }
-                    )
-            ) {
-                content()
-            }
+        )
+        Column(
+            modifier = Modifier.fillMaxSize()
+                .then(
+                    if(hasToolbar){
+                        Modifier
+                    }else{
+                        Modifier.systemBarsPadding()
+                    }
+                )
+        ) {
+            content()
         }
     }
 }

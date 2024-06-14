@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import com.velosobr.auth.presentation.R
 import com.velosobr.core.presentation.designsystem.GoRunTheme
 import com.velosobr.core.presentation.designsystem.LogoIcon
+import com.velosobr.core.presentation.designsystem.components.GoRunActionButton
 import com.velosobr.core.presentation.designsystem.components.GradientBackground
 
 @Composable
@@ -47,6 +49,32 @@ fun IntroScreen(
         ) {
             GoRunLogoVertical()
         }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+                .padding(bottom = 48.dp)
+        ) {
+            Text(
+                text = stringResource(id = R.string.welcome_to_gorun),
+                color = MaterialTheme.colorScheme.onBackground,
+                fontSize = 20.sp
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = stringResource(id = R.string.welcome_description),
+                style = MaterialTheme.typography.bodySmall
+            )
+            Spacer(modifier = Modifier.height(32.dp))
+            GoRunActionButton(
+                text = stringResource(id = R.string.sign_up),
+                isLoading = false,
+                modifier = Modifier.fillMaxWidth(),
+                onClick = { onAction(IntroAction.OnSIgnUpCLick) }
+            )
+
+
+        }
     }
 }
 
@@ -69,6 +97,9 @@ private fun GoRunLogoVertical(
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onBackground
         )
+
+
+
     }
 }
 
