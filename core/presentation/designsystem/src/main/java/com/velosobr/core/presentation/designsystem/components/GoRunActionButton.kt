@@ -36,7 +36,6 @@ fun GoRunActionButton(
     Button(
         onClick = onClick,
         enabled = enabled,
-
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary,
@@ -68,8 +67,6 @@ fun GoRunActionButton(
 
             )
         }
-
-
     }
 
 }
@@ -94,7 +91,6 @@ fun GoRunOutlinedActionButton(
             color = MaterialTheme.colorScheme.onBackground
 
         ),
-
         shape = RoundedCornerShape(100f),
         modifier = modifier
             .height(IntrinsicSize.Min)
@@ -120,7 +116,26 @@ fun GoRunOutlinedActionButton(
 
             )
         }
-
-
     }
+}
+
+@Preview
+@Composable
+fun GoRunActionButtonPreview() {
+    GoRunActionButton(
+        text = "Sign In",
+        isLoading = false,
+        onClick = { }
+    )
+}
+
+
+@Preview
+@Composable
+fun GoRunOutlinedActionButtonPreview() {
+    GoRunOutlinedActionButton(
+        text = "Sign In",
+        isLoading = false,
+        onClick = { }
+    )
 }
