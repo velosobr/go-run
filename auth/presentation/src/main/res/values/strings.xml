@@ -5,4 +5,7 @@
     <string name="welcome_description">Rastreie suas corridas, faça metas e conquiste suas metas através do nosso app.</string>
     <string name="sign_up">Cadastrar</string>
     <string name="sign_in">Entrar</string>
+    <string name="create_account">Create Account</string>
+    <string name="already_have_an_account">Já tem uma conta? \n</string>
+    <string name="login">login</string>
 </resources>
