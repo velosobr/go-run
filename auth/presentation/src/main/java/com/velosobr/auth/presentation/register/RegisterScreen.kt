@@ -1,4 +1,3 @@
-@file:Suppress("OPT_IN_USAGE_FUTURE_ERROR")
 @file:OptIn(ExperimentalFoundationApi::class)
 
 package com.velosobr.auth.presentation.register
@@ -22,15 +21,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.velosobr.auth.presentation.R
 import com.velosobr.core.presentation.designsystem.CheckIcon
 import com.velosobr.core.presentation.designsystem.EmailIcon
+import com.velosobr.core.presentation.designsystem.EyeOpenedIcon
 import com.velosobr.core.presentation.designsystem.GoRunTheme
 import com.velosobr.core.presentation.designsystem.GorunGray
+import com.velosobr.core.presentation.designsystem.LockIcon
 import com.velosobr.core.presentation.designsystem.Poppins
+import com.velosobr.core.presentation.designsystem.components.GoRunPasswordTextField
 import com.velosobr.core.presentation.designsystem.components.GoRunTextField
 import com.velosobr.core.presentation.designsystem.components.GradientBackground
 import org.koin.androidx.compose.koinViewModel
@@ -69,7 +72,7 @@ private fun RegisterScreen(
             )
             Row {
                 Text(
-                    text = stringResource(id = R.string.already_have_an_account),
+                    text = stringResource(id = R.string.already_have_an_account) + " ",
                     style = androidx.compose.ui.text.TextStyle(
                         fontFamily = Poppins, color = GorunGray
                     )
@@ -116,10 +119,22 @@ private fun RegisterScreen(
                 title = stringResource(id = R.string.email),
                 modifier = Modifier.fillMaxWidth(),
                 additionalInfo = stringResource(id = R.string.must_be_a_valid_email),
+                keyboardType = KeyboardType.Email
             )
+
 
             Spacer(modifier = Modifier.height(16.dp))
 
+            GoRunPasswordTextField(
+                state = state.password,
+                hint = stringResource(id = R.string.password),
+                title = stringResource(id = R.string.password),
+                isPasswordVisible = state.isPasswordVisible,
+                onTogglePasswordVisibility = {
+                    onAction(RegisterAction.onTogglePasswordVisibilityClick)
+                },
+                modifier = Modifier.fillMaxWidth(),
+            )
 
         }
 
