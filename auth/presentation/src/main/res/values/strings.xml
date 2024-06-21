@@ -14,4 +14,7 @@
     <string name="digit_password">Digite sua senha</string>
     <string name="must_be_a_valid_email">Digite um email válido</string>
     <string name="at_least_x_characters">At least %d characters</string>
+    <string name="at_least_one_number">At least one number.</string>
+    <string name="contains_lowercase_character">Contains lowercase character</string>
+    <string name="contains_uppercase_character">Contains lowercase character</string>
 </resources>

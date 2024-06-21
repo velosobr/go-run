@@ -28,6 +28,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.velosobr.auth.domain.UserDataValidator
 import com.velosobr.auth.presentation.R
 import com.velosobr.core.presentation.designsystem.CheckIcon
 import com.velosobr.core.presentation.designsystem.CrossIcon
@@ -80,8 +81,7 @@ private fun RegisterScreen(
                 )
                 val annotatedString = buildAnnotatedString {
                     pushStringAnnotation(
-                        tag = "clickable_text",
-                        annotation = stringResource(id = R.string.login)
+                        tag = "clickable_text", annotation = stringResource(id = R.string.login)
                     )
                     withStyle(
                         style = SpanStyle(
@@ -93,19 +93,14 @@ private fun RegisterScreen(
                         append(stringResource(id = R.string.login))
                     }
                 }
-                ClickableText(
-                    text = annotatedString,
-                    onClick = { offset ->
-                        annotatedString.getStringAnnotations(
-                            tag = "click_text",
-                            start = offset,
-                            end = offset
-                        ).firstOrNull()?.let {
-                            onAction(RegisterAction.onLoginClick)
-                        }
-
+                ClickableText(text = annotatedString, onClick = { offset ->
+                    annotatedString.getStringAnnotations(
+                        tag = "click_text", start = offset, end = offset
+                    ).firstOrNull()?.let {
+                        onAction(RegisterAction.onLoginClick)
                     }
-                )
+
+                })
             }
             Spacer(modifier = Modifier.height(48.dp))
             GoRunTextField(
@@ -139,8 +134,33 @@ private fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            PasswordRequirement(text = stringResource(id = R.string.at_least_x_characters), isValid = )
+            PasswordRequirement(
+                text = stringResource(
+                    id = R.string.at_least_x_characters, UserDataValidator.MIN_PASSWORD_LENGTH
+                ), isValid = state.passwordValidationState.hasMinLength
+            )
+            Spacer(modifier = Modifier.height(4.dp))
 
+            PasswordRequirement(
+                text = stringResource(
+                    id = R.string.at_least_one_number, UserDataValidator.MIN_PASSWORD_LENGTH
+                ), isValid = state.passwordValidationState.hasMinLength
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+
+            PasswordRequirement(
+                text = stringResource(
+                    id = R.string.contains_lowercase_character, UserDataValidator.MIN_PASSWORD_LENGTH
+                ), isValid = state.passwordValidationState.hasMinLength
+            )
+            Spacer(modifier = Modifier.height(4.dp))
+
+            PasswordRequirement(
+                text = stringResource(
+                    id = R.string.contains_uppercase_character, UserDataValidator.MIN_PASSWORD_LENGTH
+                ), isValid = state.passwordValidationState.hasMinLength
+            )
+            Spacer(modifier = Modifier.height(4.dp))
         }
 
 
@@ -150,19 +170,15 @@ private fun RegisterScreen(
 
 @Composable
 fun PasswordRequirement(
-    text: String,
-    isValid: Boolean,
-    modifier: Modifier = Modifier
+    text: String, isValid: Boolean, modifier: Modifier = Modifier
 ) {
-    Row (
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
-    ){
+    Row(
+        modifier = modifier, verticalAlignment = Alignment.CenterVertically
+    ) {
         Icon(
-         imageVector = if (isValid) CheckIcon else CrossIcon,
+            imageVector = if (isValid) CheckIcon else CrossIcon,
             contentDescription = null,
-            tint = if (isValid)
-                MaterialTheme.colorScheme.primary
+            tint = if (isValid) MaterialTheme.colorScheme.primary
             else MaterialTheme.colorScheme.error
         )
         Spacer(modifier = Modifier.width(16.dp))
@@ -179,10 +195,7 @@ fun PasswordRequirement(
 private fun RegisterScreenPreview() {
 
     GoRunTheme {
-        RegisterScreen(
-            state = RegisterState(),
-            onAction = {}
-        )
+        RegisterScreen(state = RegisterState(), onAction = {})
 
     }
 
