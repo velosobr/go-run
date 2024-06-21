@@ -10,12 +10,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -27,17 +30,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.velosobr.auth.presentation.R
 import com.velosobr.core.presentation.designsystem.CheckIcon
+import com.velosobr.core.presentation.designsystem.CrossIcon
 import com.velosobr.core.presentation.designsystem.EmailIcon
-import com.velosobr.core.presentation.designsystem.EyeOpenedIcon
 import com.velosobr.core.presentation.designsystem.GoRunTheme
 import com.velosobr.core.presentation.designsystem.GorunGray
-import com.velosobr.core.presentation.designsystem.LockIcon
 import com.velosobr.core.presentation.designsystem.Poppins
 import com.velosobr.core.presentation.designsystem.components.GoRunPasswordTextField
 import com.velosobr.core.presentation.designsystem.components.GoRunTextField
 import com.velosobr.core.presentation.designsystem.components.GradientBackground
 import org.koin.androidx.compose.koinViewModel
-import java.time.format.TextStyle
 
 @Composable
 fun RegisterActionRoot(
@@ -136,6 +137,10 @@ private fun RegisterScreen(
                 modifier = Modifier.fillMaxWidth(),
             )
 
+            Spacer(modifier = Modifier.height(16.dp))
+
+            PasswordRequirement(text = stringResource(id = R.string.at_least_x_characters), isValid = )
+
         }
 
 
@@ -143,13 +148,40 @@ private fun RegisterScreen(
 
 }
 
+@Composable
+fun PasswordRequirement(
+    text: String,
+    isValid: Boolean,
+    modifier: Modifier = Modifier
+) {
+    Row (
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ){
+        Icon(
+         imageVector = if (isValid) CheckIcon else CrossIcon,
+            contentDescription = null,
+            tint = if (isValid)
+                MaterialTheme.colorScheme.primary
+            else MaterialTheme.colorScheme.error
+        )
+        Spacer(modifier = Modifier.width(16.dp))
+        Text(
+            text = text,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            fontSize = MaterialTheme.typography.bodyMedium.fontSize,
+        )
+    }
+}
+
 @Preview
 @Composable
-private fun RegisterActionRootScreenPreview() {
+private fun RegisterScreenPreview() {
 
     GoRunTheme {
-        RegisterScreen(state = RegisterState(), onAction = {}
-
+        RegisterScreen(
+            state = RegisterState(),
+            onAction = {}
         )
 
     }
