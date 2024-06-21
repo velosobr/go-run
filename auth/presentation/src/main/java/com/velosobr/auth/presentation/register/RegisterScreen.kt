@@ -28,6 +28,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.velosobr.auth.domain.PasswordValidationState
 import com.velosobr.auth.domain.UserDataValidator
 import com.velosobr.auth.presentation.R
 import com.velosobr.core.presentation.designsystem.CheckIcon
@@ -36,6 +37,7 @@ import com.velosobr.core.presentation.designsystem.EmailIcon
 import com.velosobr.core.presentation.designsystem.GoRunTheme
 import com.velosobr.core.presentation.designsystem.GorunGray
 import com.velosobr.core.presentation.designsystem.Poppins
+import com.velosobr.core.presentation.designsystem.components.GoRunActionButton
 import com.velosobr.core.presentation.designsystem.components.GoRunPasswordTextField
 import com.velosobr.core.presentation.designsystem.components.GoRunTextField
 import com.velosobr.core.presentation.designsystem.components.GradientBackground
@@ -144,23 +146,33 @@ private fun RegisterScreen(
             PasswordRequirement(
                 text = stringResource(
                     id = R.string.at_least_one_number, UserDataValidator.MIN_PASSWORD_LENGTH
-                ), isValid = state.passwordValidationState.hasMinLength
+                ), isValid = state.passwordValidationState.hasNumber
             )
             Spacer(modifier = Modifier.height(4.dp))
 
             PasswordRequirement(
                 text = stringResource(
-                    id = R.string.contains_lowercase_character, UserDataValidator.MIN_PASSWORD_LENGTH
-                ), isValid = state.passwordValidationState.hasMinLength
+                    id = R.string.contains_lowercase_character,
+                    UserDataValidator.MIN_PASSWORD_LENGTH
+                ), isValid = state.passwordValidationState.hasLowerCaseCharacter
             )
             Spacer(modifier = Modifier.height(4.dp))
 
             PasswordRequirement(
                 text = stringResource(
-                    id = R.string.contains_uppercase_character, UserDataValidator.MIN_PASSWORD_LENGTH
-                ), isValid = state.passwordValidationState.hasMinLength
+                    id = R.string.contains_uppercase_character,
+                    UserDataValidator.MIN_PASSWORD_LENGTH
+                ), isValid = state.passwordValidationState.hasUpperCaseCharacter
             )
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(32.dp))
+
+            GoRunActionButton(
+                text = stringResource(id = R.string.register),
+                isLoading = state.isRegistering,
+                enabled = state.canRegister
+            ) {
+
+            }
         }
 
 
@@ -195,7 +207,13 @@ fun PasswordRequirement(
 private fun RegisterScreenPreview() {
 
     GoRunTheme {
-        RegisterScreen(state = RegisterState(), onAction = {})
+        RegisterScreen(
+            state = RegisterState(
+                passwordValidationState = PasswordValidationState(
+                    hasNumber = true,
+
+                    ),
+            ), onAction = {})
 
     }
 
