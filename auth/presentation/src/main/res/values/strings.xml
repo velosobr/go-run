@@ -10,7 +10,11 @@
     <string name="login">login</string>
     <string name="example_email">example@mail.com</string>
     <string name="email">Email</string>
-    <string name="password">Senha\n</string>
+    <string name="password">Senha</string>
     <string name="digit_password">Digite sua senha</string>
     <string name="must_be_a_valid_email">Digite um email válido</string>
+    <string name="at_least_x_characters">At least %d characters</string>
+    <string name="at_least_one_number">At least one number.</string>
+    <string name="contains_lowercase_character">Contains lowercase character</string>
+    <string name="contains_uppercase_character">Contains lowercase character</string>
 </resources>
