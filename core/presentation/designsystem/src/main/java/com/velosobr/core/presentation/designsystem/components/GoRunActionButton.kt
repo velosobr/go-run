@@ -16,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
@@ -39,8 +40,8 @@ fun GoRunActionButton(
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary,
-            disabledContentColor = GorunGray,
-            disabledContainerColor = GorunBlack
+            disabledContentColor = GorunBlack,
+            disabledContainerColor = GorunGray
         ),
         shape = RoundedCornerShape(100f),
         modifier = modifier
@@ -50,7 +51,7 @@ fun GoRunActionButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),
-            contentAlignment = androidx.compose.ui.Alignment.Center
+            contentAlignment = Alignment.Center
         ) {
             CircularProgressIndicator(
                 modifier = Modifier
@@ -99,7 +100,7 @@ fun GoRunOutlinedActionButton(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 8.dp),
-            contentAlignment = androidx.compose.ui.Alignment.Center
+            contentAlignment = Alignment.Center
         ) {
             CircularProgressIndicator(
                 modifier = Modifier
@@ -125,6 +126,7 @@ fun GoRunActionButtonPreview() {
     GoRunActionButton(
         text = "Sign In",
         isLoading = false,
+        enabled = false,
         onClick = { }
     )
 }

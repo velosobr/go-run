@@ -169,10 +169,14 @@ private fun RegisterScreen(
             GoRunActionButton(
                 text = stringResource(id = R.string.register),
                 isLoading = state.isRegistering,
-                enabled = state.canRegister
-            ) {
+                enabled = state.canRegister,
 
-            }
+                modifier = Modifier
+                    .fillMaxWidth(),
+                onClick = {
+                    onAction(RegisterAction.onRegisterClick)
+                }
+            )
         }
 
 
@@ -210,9 +214,14 @@ private fun RegisterScreenPreview() {
         RegisterScreen(
             state = RegisterState(
                 passwordValidationState = PasswordValidationState(
+                    hasMinLength = true,
                     hasNumber = true,
-
+                    hasLowerCaseCharacter = true,
+                    hasUpperCaseCharacter = true
                     ),
+                canRegister = false
+
+
             ), onAction = {})
 
     }
