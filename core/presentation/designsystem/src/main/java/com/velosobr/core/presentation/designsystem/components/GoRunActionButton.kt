@@ -40,8 +40,8 @@ fun GoRunActionButton(
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary,
-            disabledContentColor = GorunGray,
-            disabledContainerColor = GorunBlack
+            disabledContentColor = GorunBlack,
+            disabledContainerColor = GorunGray
         ),
         shape = RoundedCornerShape(100f),
         modifier = modifier
@@ -126,6 +126,7 @@ fun GoRunActionButtonPreview() {
     GoRunActionButton(
         text = "Sign In",
         isLoading = false,
+        enabled = false,
         onClick = { }
     )
 }

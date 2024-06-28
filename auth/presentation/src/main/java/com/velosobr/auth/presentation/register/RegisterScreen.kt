@@ -214,12 +214,13 @@ private fun RegisterScreenPreview() {
         RegisterScreen(
             state = RegisterState(
                 passwordValidationState = PasswordValidationState(
+                    hasMinLength = true,
                     hasNumber = true,
-                    hasUpperCaseCharacter = true,
                     hasLowerCaseCharacter = true,
-                    hasMinLength = true
-
+                    hasUpperCaseCharacter = true
                     ),
+                canRegister = false
+
 
             ), onAction = {})
 
