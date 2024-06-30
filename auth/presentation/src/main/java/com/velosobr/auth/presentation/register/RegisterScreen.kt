@@ -44,7 +44,7 @@ import com.velosobr.core.presentation.designsystem.components.GradientBackground
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun RegisterActionRoot(
+fun RegisterScreenRoot(
     onSignInClick: () -> Unit,
     onSuccessFulRegistration: () -> Unit,
     viewModel: RegisterViewModel = koinViewModel(),
