@@ -1,4 +1,6 @@
-@file:Suppress("OPT_IN_USAGE_FUTURE_ERROR") @file:OptIn(ExperimentalFoundationApi::class)
+@file:OptIn(ExperimentalFoundationApi::class,
+    ExperimentalFoundationApi::class, ExperimentalFoundationApi::class
+)
 
 package com.velosobr.auth.presentation.register
 
@@ -11,19 +13,21 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.velosobr.auth.domain.AuthRepository
 import com.velosobr.auth.domain.UserDataValidator
-import com.velosobr.core.domain.util.EmptyResult
+import com.velosobr.core.domain.util.Result
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 class RegisterViewModel(
-    private val userDataValidator: UserDataValidator,
-    private val authRepository: AuthRepository
+    private val userDataValidator: UserDataValidator, private val authRepository: AuthRepository
 ) : ViewModel() {
     var state by mutableStateOf(RegisterState())
         private set
-    private val eventChannel = Channel<RegisterEvent>(Channel.BUFFERED)
+    private val eventChannel = Channel<RegisterEvent>()
+    val events = eventChannel.receiveAsFlow()
+
     init {
         state.email.textAsFlow().onEach { email ->
             val isValidEmail = userDataValidator.isValidEmail(email.toString())
@@ -53,13 +57,11 @@ class RegisterViewModel(
                 email = state.email.toString().trim(),
                 password = state.password.toString(),
 
-            )
+                )
             state = state.copy(isRegistering = false)
-            when (result){
-               is Result.Error -> {
 
-               }
-                is Result.Success -> TODO()
+            when(result) {
+                is Result.Success ->
             }
 
 
