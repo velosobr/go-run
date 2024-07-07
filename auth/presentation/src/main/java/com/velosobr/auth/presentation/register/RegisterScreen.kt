@@ -99,7 +99,7 @@ private fun RegisterScreen(
                     annotatedString.getStringAnnotations(
                         tag = "click_text", start = offset, end = offset
                     ).firstOrNull()?.let {
-                        onAction(RegisterAction.onLoginClick)
+                        onAction(RegisterAction.OnLoginClick)
                     }
 
                 })
@@ -129,7 +129,7 @@ private fun RegisterScreen(
                 title = stringResource(id = R.string.password),
                 isPasswordVisible = state.isPasswordVisible,
                 onTogglePasswordVisibility = {
-                    onAction(RegisterAction.onTogglePasswordVisibilityClick)
+                    onAction(RegisterAction.OnTogglePasswordVisibilityClick)
                 },
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -174,7 +174,7 @@ private fun RegisterScreen(
                 modifier = Modifier
                     .fillMaxWidth(),
                 onClick = {
-                    onAction(RegisterAction.onRegisterClick)
+                    onAction(RegisterAction.OnRegisterClick)
                 }
             )
         }

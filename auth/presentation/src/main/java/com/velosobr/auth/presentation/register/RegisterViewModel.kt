@@ -1,4 +1,5 @@
-@file:OptIn(ExperimentalFoundationApi::class,
+@file:OptIn(
+    ExperimentalFoundationApi::class,
     ExperimentalFoundationApi::class, ExperimentalFoundationApi::class
 )
 
@@ -13,7 +14,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.velosobr.auth.domain.AuthRepository
 import com.velosobr.auth.domain.UserDataValidator
+import com.velosobr.auth.presentation.R
+import com.velosobr.core.domain.util.DataError
 import com.velosobr.core.domain.util.Result
+import com.velosobr.core.presentation.ui.UiText
+import com.velosobr.core.presentation.ui.asUiText
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -47,7 +52,16 @@ class RegisterViewModel(
     }
 
     fun onAction(action: RegisterAction) {
+        when(action) {
+            is RegisterAction.OnRegisterClick -> register()
+            is RegisterAction.OnTogglePasswordVisibilityClick ->
+                state = state.copy(
+                    isPasswordVisible = !state.isPasswordVisible
+                )
+            else -> Unit
 
+
+        }
     }
 
     private fun register() {
@@ -60,8 +74,18 @@ class RegisterViewModel(
                 )
             state = state.copy(isRegistering = false)
 
-            when(result) {
-                is Result.Success ->
+            when (result) {
+                is Result.Success -> {
+                    eventChannel.send(RegisterEvent.RegistrationSuccess)
+                }
+
+                is Result.Error -> {
+                    if (result.error == DataError.NetworkError.CONFLICT)
+                        eventChannel.send(RegisterEvent.Error(UiText.StringResource(R.string.error_email_already_registered)))
+                    else
+                        eventChannel.send(RegisterEvent.Error(result.error.asUiText()))
+
+                }
             }
 
 
