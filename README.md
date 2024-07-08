@@ -2,6 +2,18 @@
 
 GoRun is an application designed to help users track their runs, set goals, and achieve them through our app. The application is built using Kotlin, and it uses advanced archtecture.
 
+### What you'll see:
+
+- **Project Planning & Architecture Fundamentals**: Insight into planning and structuring large-scale projects.
+- **Gradle, Build-logic, Version Catalogs, Convention Plugins**: Techniques for efficient project configuration and dependency management.
+- **Reactive Programming with Coroutines & Flows**: Advanced asynchronous programming patterns using Kotlin coroutines and flows.
+- **Jetpack Compose in Large-scale Projects**: Implementation of Jetpack Compose for modern, efficient UI development.
+- **Remote APIs, Local Databases & Caching Strategies**: Strategies for managing data from remote APIs and local storage.
+- **Dynamic Feature Modules**: Modularization techniques for scalable and maintainable codebases.
+- **Location Tracking with the Google Maps SDK**: Integration of Google Maps for precise location tracking.
+
+Feel free to explore the code, and don't hesitate to reach out if you have any questions or feedback!
+
 ## Project Structure
 
 The project is structured into several modules:
