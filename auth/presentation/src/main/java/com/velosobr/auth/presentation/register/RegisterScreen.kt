@@ -2,6 +2,7 @@
 
 package com.velosobr.auth.presentation.register
 
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -20,6 +21,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -41,18 +44,42 @@ import com.velosobr.core.presentation.designsystem.components.GoRunActionButton
 import com.velosobr.core.presentation.designsystem.components.GoRunPasswordTextField
 import com.velosobr.core.presentation.designsystem.components.GoRunTextField
 import com.velosobr.core.presentation.designsystem.components.GradientBackground
+import com.velosobr.core.presentation.ui.ObserveAsEvents
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
-fun RegisterActionRoot(
+fun RegisterScreenRoot(
     onSignInClick: () -> Unit,
     onSuccessFulRegistration: () -> Unit,
     viewModel: RegisterViewModel = koinViewModel(),
 ) {
+    val context = LocalContext.current
+    val keyboardController = LocalSoftwareKeyboardController.current
+    ObserveAsEvents(viewModel.events) { event ->
+        when (event) {
+            is RegisterEvent.Error -> {
+                keyboardController?.hide()
+                Toast.makeText(
+                    context,
+                    event.error.asString(context),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
 
+            is RegisterEvent.RegistrationSuccess -> {
+                keyboardController?.hide()
+                Toast.makeText(
+                    context,
+                    R.string.registration_successful,
+                    Toast.LENGTH_LONG
+                ).show()
+                onSuccessFulRegistration()
+            }
+        }
+    }
     RegisterScreen(
-        state = viewModel.state, onAction = viewModel::onAction
-
+        state = viewModel.state,
+        onAction = viewModel::onAction
     )
 
 }
@@ -99,7 +126,7 @@ private fun RegisterScreen(
                     annotatedString.getStringAnnotations(
                         tag = "click_text", start = offset, end = offset
                     ).firstOrNull()?.let {
-                        onAction(RegisterAction.onLoginClick)
+                        onAction(RegisterAction.OnLoginClick)
                     }
 
                 })
@@ -129,7 +156,7 @@ private fun RegisterScreen(
                 title = stringResource(id = R.string.password),
                 isPasswordVisible = state.isPasswordVisible,
                 onTogglePasswordVisibility = {
-                    onAction(RegisterAction.onTogglePasswordVisibilityClick)
+                    onAction(RegisterAction.OnTogglePasswordVisibilityClick)
                 },
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -174,7 +201,7 @@ private fun RegisterScreen(
                 modifier = Modifier
                     .fillMaxWidth(),
                 onClick = {
-                    onAction(RegisterAction.onRegisterClick)
+                    onAction(RegisterAction.OnRegisterClick)
                 }
             )
         }
@@ -218,7 +245,7 @@ private fun RegisterScreenPreview() {
                     hasNumber = true,
                     hasLowerCaseCharacter = true,
                     hasUpperCaseCharacter = true
-                    ),
+                ),
                 canRegister = false
 
 

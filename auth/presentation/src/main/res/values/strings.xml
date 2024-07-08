@@ -18,4 +18,6 @@
     <string name="contains_lowercase_character">Contains lowercase character.</string>
     <string name="contains_uppercase_character">Contains lowercase character.</string>
     <string name="register">Cadastrar</string>
+    <string name="error_email_already_registered">A user with that email already exists</string>
+    <string name="registration_successful">Registration succesful! You can log in now.</string>
 </resources>
