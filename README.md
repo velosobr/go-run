@@ -1,6 +1,6 @@
 # GoRun Application
 
-GoRun is an application designed to help users track their runs, set goals, and achieve them through our app. The application is built using Kotlin and Java, and it uses Gradle for dependency management.
+GoRun is an application designed to help users track their runs, set goals, and achieve them through our app. The application is built using Kotlin, and it uses advanced archtecture.
 
 ## Project Structure
 
