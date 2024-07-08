@@ -1,5 +1,6 @@
 package com.velosobr.gorun
 
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -16,34 +17,40 @@ fun NavigationRoot(
     NavHost(
         navController = navController,
         startDestination = "auth"
-    ){
+    ) {
         authGraph(navController)
     }
 }
 
 private fun NavGraphBuilder.authGraph(navController: NavHostController) {
     navigation(
-       startDestination = "intro",
-         route = "auth"
+        startDestination = "intro",
+        route = "auth"
     ) {
-      composable(route = "intro") {
-          IntroScreenRoot(
-              onSignInClick = { navController.navigate("login") },
-              onSignUpClick = { navController.navigate("register") }
-          )
-      }
+        composable(route = "intro") {
+            IntroScreenRoot(
+                onSignInClick = { navController.navigate("login") },
+                onSignUpClick = { navController.navigate("register") }
+            )
+        }
         composable(route = "register") {
             RegisterScreenRoot(
                 onSignInClick = {
-                    navController.navigate("login"){
-                        popUpTo("register"){
+                    navController.navigate("login") {
+                        popUpTo("register") {
                             inclusive = true
                             saveState = true
                         }
                         restoreState = true
                     }
-                                },
-                onSuccessFulRegistration = { navController.navigate("login")})
+                },
+                onSuccessFulRegistration = {
+                    navController.navigate("login")
+                })
+        }
+
+        composable(route = "login") {
+            Text(text = "Login")
         }
     }
 }
