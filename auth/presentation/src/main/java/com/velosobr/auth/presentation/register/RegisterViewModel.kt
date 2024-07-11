@@ -1,6 +1,7 @@
 @file:OptIn(
     ExperimentalFoundationApi::class,
-    ExperimentalFoundationApi::class, ExperimentalFoundationApi::class
+    ExperimentalFoundationApi::class, ExperimentalFoundationApi::class,
+    ExperimentalFoundationApi::class
 )
 
 package com.velosobr.auth.presentation.register
@@ -64,6 +65,7 @@ class RegisterViewModel(
         }
     }
 
+    @OptIn(ExperimentalFoundationApi::class)
     private fun register() {
         viewModelScope.launch {
             state = state.copy(isRegistering = true)
