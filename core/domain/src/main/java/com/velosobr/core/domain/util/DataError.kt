@@ -4,6 +4,7 @@ sealed interface DataError: Error {
 
     enum class NetworkError: DataError {
         NO_INTERNET_CONNECTION,
+        BAD_REQUEST,
         NO_RESPONSE,
         REQUEST_TIMEOUT,
         CONFLICT,
