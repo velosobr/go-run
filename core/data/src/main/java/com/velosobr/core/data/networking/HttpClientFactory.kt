@@ -1,7 +1,9 @@
 package com.velosobr.core.data.networking
 
 import com.velosobr.core.data.BuildConfig
+import com.velosobr.core.domain.AuthInfo
 import com.velosobr.core.domain.SessionStorage
+import com.velosobr.core.domain.util.Result
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.auth.Auth
@@ -54,7 +56,27 @@ class HttpClientFactory(
                     }
                     refreshTokens {
                         val authInfo = sessionStorage.get()
-                        val response = client.post<AccessTokenRequest, AccessTokenResponse>()
+                        val response = client.post<AccessTokenRequest, AccessTokenResponse>(
+                            route = "/accessToken",
+                            body = AccessTokenRequest(
+                                refreshToken = authInfo?.refreshToken ?: "",
+                                userId = authInfo?.userId ?: ""
+                            )
+                        )
+                        if (response is Result.Success) {
+                            val newAuthInfo = AuthInfo(
+                                accessToken = response.data.accessToken,
+                                refreshToken = authInfo?.refreshToken ?: "",
+                                userId = authInfo?.userId ?: ""
+                            )
+                            sessionStorage.set(newAuthInfo)
+                            BearerTokens(
+                                accessToken = newAuthInfo.accessToken,
+                                refreshToken = newAuthInfo.refreshToken
+                            )
+                        } else {
+                            BearerTokens("", "")
+                        }
                     }
 
                 }

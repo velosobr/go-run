@@ -1,7 +1,9 @@
 package com.velosobr.core.data.networking
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class AccessTokenRequest(
     val refreshToken: String,
-    val expirationTimestamp: String
-) {
-}
+    val userId : String
+    )
