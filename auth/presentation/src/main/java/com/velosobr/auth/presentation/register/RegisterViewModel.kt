@@ -1,8 +1,5 @@
-@file:OptIn(
-    ExperimentalFoundationApi::class,
-    ExperimentalFoundationApi::class, ExperimentalFoundationApi::class,
-    ExperimentalFoundationApi::class
-)
+@file:Suppress("OPT_IN_USAGE_FUTURE_ERROR")
+@file:OptIn(ExperimentalFoundationApi::class)
 
 package com.velosobr.auth.presentation.register
 
@@ -36,12 +33,12 @@ class RegisterViewModel(
 
     init {
         state.email.textAsFlow().onEach { email ->
-            val isValidEmail = userDataValidator.isValidEmail(email.toString())
-            state = state.copy(
-                isEmailValid = isValidEmail,
-                canRegister = state.passwordValidationState.isValidPassword && isValidEmail && !state.isRegistering
-            )
-        }.launchIn(viewModelScope)
+                val isValidEmail = userDataValidator.isValidEmail(email.toString())
+                state = state.copy(
+                    isEmailValid = isValidEmail,
+                    canRegister = state.passwordValidationState.isValidPassword && isValidEmail && !state.isRegistering
+                )
+            }.launchIn(viewModelScope)
 
         state.password.textAsFlow().onEach { password ->
             val passwordValidationState = userDataValidator.validatePassword(password.toString())
@@ -53,45 +50,38 @@ class RegisterViewModel(
     }
 
     fun onAction(action: RegisterAction) {
-        when(action) {
+        when (action) {
             is RegisterAction.OnRegisterClick -> register()
-            is RegisterAction.OnTogglePasswordVisibilityClick ->
+            is RegisterAction.OnTogglePasswordVisibilityClick -> {
                 state = state.copy(
                     isPasswordVisible = !state.isPasswordVisible
                 )
+            }
+
             else -> Unit
-
-
         }
     }
 
-    @OptIn(ExperimentalFoundationApi::class)
     private fun register() {
         viewModelScope.launch {
             state = state.copy(isRegistering = true)
             val result = authRepository.register(
-                email = state.email.toString().trim(),
-                password = state.password.toString(),
-
-                )
+                email = state.email.text.toString(),
+                password = state.password.text.toString(),
+            )
             state = state.copy(isRegistering = false)
-
             when (result) {
                 is Result.Success -> {
                     eventChannel.send(RegisterEvent.RegistrationSuccess)
                 }
 
                 is Result.Error -> {
-                    if (result.error == DataError.NetworkError.CONFLICT)
-                        eventChannel.send(RegisterEvent.Error(UiText.StringResource(R.string.error_email_already_registered)))
-                    else
-                        eventChannel.send(RegisterEvent.Error(result.error.asUiText()))
-
+                    if (result.error == DataError.NetworkError.CONFLICT) eventChannel.send(
+                        RegisterEvent.Error(UiText.StringResource(R.string.error_email_already_registered))
+                    )
+                    else eventChannel.send(RegisterEvent.Error(result.error.asUiText()))
                 }
             }
-
-
         }
     }
-
 }
