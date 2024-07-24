@@ -18,4 +18,11 @@ class AuthRepositoryImpl(
             body = RegisterRequest(email, password)
         )
     }
+
+    override suspend fun login(
+        email: String,
+        password: String
+    ): EmptyResult<DataError.NetworkError> {
+        TODO("Not yet implemented")
+    }
 }

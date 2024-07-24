@@ -20,4 +20,6 @@
     <string name="register">Cadastrar</string>
     <string name="error_email_already_registered">A user with that email already exists</string>
     <string name="registration_successful">Registration succesful! You can log in now.</string>
+    <string name="loggin_in">Olá!</string>
+    <string name="gorun_wellcome_text">Bem vindo ao seu mais novo amigo de corrida! Rastreie, analize e conquiste as suas corridas.</string>
 </resources>

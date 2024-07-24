@@ -1,5 +1,4 @@
-@file:Suppress("OPT_IN_USAGE_FUTURE_ERROR")
-@file:OptIn(ExperimentalFoundationApi::class)
+@file:OptIn(ExperimentalFoundationApi::class, ExperimentalFoundationApi::class)
 
 package com.velosobr.auth.presentation.register
 
@@ -33,12 +32,12 @@ class RegisterViewModel(
 
     init {
         state.email.textAsFlow().onEach { email ->
-                val isValidEmail = userDataValidator.isValidEmail(email.toString())
-                state = state.copy(
-                    isEmailValid = isValidEmail,
-                    canRegister = state.passwordValidationState.isValidPassword && isValidEmail && !state.isRegistering
-                )
-            }.launchIn(viewModelScope)
+            val isValidEmail = userDataValidator.isValidEmail(email.toString())
+            state = state.copy(
+                isEmailValid = isValidEmail,
+                canRegister = state.passwordValidationState.isValidPassword && isValidEmail && !state.isRegistering
+            )
+        }.launchIn(viewModelScope)
 
         state.password.textAsFlow().onEach { password ->
             val passwordValidationState = userDataValidator.validatePassword(password.toString())
@@ -62,6 +61,7 @@ class RegisterViewModel(
         }
     }
 
+    @OptIn(ExperimentalFoundationApi::class)
     private fun register() {
         viewModelScope.launch {
             state = state.copy(isRegistering = true)
