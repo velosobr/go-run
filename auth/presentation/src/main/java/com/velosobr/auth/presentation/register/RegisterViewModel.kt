@@ -48,6 +48,10 @@ class RegisterViewModel(
         }.launchIn(viewModelScope)
     }
 
+    private fun login() {
+        TODO("Not yet implemented")
+    }
+
     fun onAction(action: RegisterAction) {
         when (action) {
             is RegisterAction.OnRegisterClick -> register()

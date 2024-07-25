@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalFoundationApi::class)
+@file:OptIn(ExperimentalFoundationApi::class, ExperimentalFoundationApi::class)
 
 package com.velosobr.auth.presentation.login
 
@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -22,6 +23,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
@@ -29,8 +31,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.velosobr.auth.presentation.R
+import com.velosobr.auth.presentation.register.RegisterAction
 import com.velosobr.core.presentation.designsystem.EmailIcon
 import com.velosobr.core.presentation.designsystem.GoRunTheme
+import com.velosobr.core.presentation.designsystem.GorunGray
 import com.velosobr.core.presentation.designsystem.Poppins
 import com.velosobr.core.presentation.designsystem.components.GoRunActionButton
 import com.velosobr.core.presentation.designsystem.components.GoRunPasswordTextField
@@ -49,7 +53,7 @@ fun LoginScreenRoot(
     val context = LocalContext.current
     val keyboardController = LocalSoftwareKeyboardController.current
     ObserveAsEvents(viewModel.events) { event ->
-        when(event) {
+        when (event) {
             is LoginEvent.Error -> {
                 keyboardController?.hide()
                 Toast.makeText(
@@ -58,6 +62,7 @@ fun LoginScreenRoot(
                     Toast.LENGTH_LONG
                 ).show()
             }
+
             LoginEvent.LoginSuccess -> {
                 keyboardController?.hide()
                 Toast.makeText(
@@ -73,7 +78,8 @@ fun LoginScreenRoot(
 
     LoginScreen(state = viewModel.state, onAction = { action ->
         when (action) {
-            is LoginAction.OnLoginClick -> onSignUpClick()
+            is LoginAction.OnLoginClick -> viewModel.onAction(LoginAction.OnLoginClick)
+            is LoginAction.OnSignUpClick -> onSignUpClick()
             else -> Unit
         }
         viewModel.onAction(action)
@@ -131,46 +137,47 @@ private fun LoginScreen(
                 text = stringResource(id = R.string.login),
                 isLoading = state.isLoggingIn,
                 enabled = state.canLogin,
-                onClick = { onAction(LoginAction.OnLoginClick) },
+                onClick = {
+                    onAction(LoginAction.OnLoginClick)
+                },
             )
 
-            Text(
-                text = stringResource(id = R.string.dont_have_an_account) + " ",
-                style = androidx.compose.ui.text.TextStyle(
-                    fontFamily = Poppins, color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            )
-            val annotatedString = buildAnnotatedString {
-                pushStringAnnotation(
-                    tag = "clickable_text", annotation = stringResource(id = R.string.sign_up)
-                )
-                withStyle(
-                    style = SpanStyle(
-                        fontWeight = FontWeight.SemiBold,
-                        color = MaterialTheme.colorScheme.primary,
-                        fontFamily = Poppins
+            Spacer(modifier = Modifier.height(16.dp))
+            Row {
+                Text(
+                    text = stringResource(id = R.string.dont_have_an_account) + " ",
+                    style = TextStyle(
+                        fontFamily = Poppins, color = GorunGray
                     )
-                ) {
-                    append(stringResource(id = R.string.sign_up))
+                )
+                val annotatedString = buildAnnotatedString {
+                    pushStringAnnotation(
+                        tag = "clickable_text", annotation = stringResource(id = R.string.sign_up)
+                    )
+                    withStyle(
+                        style = SpanStyle(
+                            fontWeight = FontWeight.SemiBold,
+                            color = MaterialTheme.colorScheme.primary,
+                            fontFamily = Poppins
+                        )
+                    ) {
+                        append(stringResource(id = R.string.sign_up))
+                    }
                 }
-            }
-            Box(
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .weight(1f),
-                contentAlignment = Alignment.BottomCenter
-            ) {
                 ClickableText(text = annotatedString, onClick = { offset ->
                     annotatedString.getStringAnnotations(
-                        tag = "click_text", start = offset, end = offset
+                        tag = "clickable_text", start = offset, end = offset
                     ).firstOrNull()?.let {
                         onAction(LoginAction.OnSignUpClick)
                     }
+
                 })
             }
+
         }
     }
 }
+
 
 @Preview
 @Composable
