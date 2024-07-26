@@ -37,13 +37,8 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
         composable(route = "register") {
             RegisterScreenRoot(
                 onSignInClick = {
-                    navController.navigate("login") {
-                        popUpTo("register") {
-                            inclusive = true
-                            saveState = true
-                        }
-                        restoreState = true
-                    }
+                    navController.navigate("login")
+
                 },
                 onSuccessFulRegistration = {
                     navController.navigate("login")
