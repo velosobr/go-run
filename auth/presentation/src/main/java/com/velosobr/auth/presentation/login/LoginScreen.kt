@@ -92,58 +92,70 @@ private fun LoginScreen(
 ) {
 
     GradientBackground {
-        Column(
-            modifier = Modifier
-                .verticalScroll(rememberScrollState())
-                .fillMaxSize()
-                .padding(horizontal = 16.dp)
-                .padding(vertical = 32.dp)
-                .padding(top = 16.dp)
+        Box (
+            modifier = Modifier.fillMaxSize()
         ) {
-            Text(
-                text = stringResource(id = R.string.loggin_in),
-                fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.headlineMedium
-            )
-            Text(
-                text = stringResource(id = R.string.gorun_wellcome_text),
-                fontSize = 12.sp,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
+            Column(
+                modifier = Modifier
+                    .verticalScroll(rememberScrollState())
+                    .fillMaxSize()
+                    .padding(horizontal = 16.dp)
+                    .padding(vertical = 32.dp)
+                    .padding(top = 16.dp)
+            ) {
+                Text(
+                    text = stringResource(id = R.string.loggin_in),
+                    fontWeight = FontWeight.Bold,
+                    style = MaterialTheme.typography.headlineMedium
+                )
+                Text(
+                    text = stringResource(id = R.string.gorun_wellcome_text),
+                    fontSize = 12.sp,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
 
-            Spacer(modifier = Modifier.height(48.dp))
+                Spacer(modifier = Modifier.height(48.dp))
 
-            GoRunTextField(
-                state = state.email,
-                startIcon = EmailIcon,
-                endIcon = null,
-                hint = stringResource(id = R.string.example_email),
-                title = stringResource(id = R.string.email),
-                modifier = Modifier.padding(bottom = 16.dp)
-            )
-            Spacer(modifier = Modifier.height(16.dp))
+                GoRunTextField(
+                    state = state.email,
+                    startIcon = EmailIcon,
+                    endIcon = null,
+                    hint = stringResource(id = R.string.example_email),
+                    title = stringResource(id = R.string.email),
+                    modifier = Modifier.padding(bottom = 16.dp)
+                )
+                Spacer(modifier = Modifier.height(16.dp))
 
-            GoRunPasswordTextField(
-                state = state.password,
-                isPasswordVisible = state.isPasswordVisible,
-                onTogglePasswordVisibility = { onAction(LoginAction.OnTogglePasswordVisibilityClick) },
-                hint = stringResource(id = R.string.password),
-                title = stringResource(id = R.string.password),
-            )
+                GoRunPasswordTextField(
+                    state = state.password,
+                    isPasswordVisible = state.isPasswordVisible,
+                    onTogglePasswordVisibility = { onAction(LoginAction.OnTogglePasswordVisibilityClick) },
+                    hint = stringResource(id = R.string.password),
+                    title = stringResource(id = R.string.password),
+                )
 
-            Spacer(modifier = Modifier.height(32.dp))
+                Spacer(modifier = Modifier.height(32.dp))
 
-            GoRunActionButton(
-                text = stringResource(id = R.string.login),
-                isLoading = state.isLoggingIn,
-                enabled = state.canLogin,
-                onClick = {
-                    onAction(LoginAction.OnLoginClick)
-                },
-            )
+                GoRunActionButton(
+                    text = stringResource(id = R.string.login),
+                    isLoading = state.isLoggingIn,
+                    enabled = state.canLogin,
+                    onClick = {
+                        onAction(LoginAction.OnLoginClick)
+                    },
+                )
 
-            Spacer(modifier = Modifier.height(16.dp))
-            Row {
+                Spacer(modifier = Modifier.height(16.dp))
+
+
+
+            }
+            Row(
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 16.dp
+
+            ) {
                 Text(
                     text = stringResource(id = R.string.dont_have_an_account) + " ",
                     style = TextStyle(
@@ -152,7 +164,8 @@ private fun LoginScreen(
                 )
                 val annotatedString = buildAnnotatedString {
                     pushStringAnnotation(
-                        tag = "clickable_text", annotation = stringResource(id = R.string.sign_up)
+                        tag = "clickable_text",
+                        annotation = stringResource(id = R.string.sign_up)
                     )
                     withStyle(
                         style = SpanStyle(
@@ -173,7 +186,6 @@ private fun LoginScreen(
 
                 })
             }
-
         }
     }
 }

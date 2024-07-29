@@ -22,7 +22,7 @@
     <string name="registration_successful">Registration succesful! You can log in now.</string>
     <string name="loggin_in">Olá!</string>
     <string name="gorun_wellcome_text">Bem vindo ao seu mais novo amigo de corrida! Rastreie, analize e conquiste as suas corridas.</string>
-    <string name="dont_have_an_account">não tem uma conta?</string>
+    <string name="dont_have_an_account">Não tem uma conta?</string>
     <string name="login_success">voce esta logado.</string>
     <string name="forgot_password">forgot password</string>
 </resources>
