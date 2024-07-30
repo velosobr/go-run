@@ -1,4 +1,6 @@
-@file:OptIn(ExperimentalFoundationApi::class, ExperimentalFoundationApi::class)
+@file:OptIn(ExperimentalFoundationApi::class, ExperimentalFoundationApi::class,
+    ExperimentalFoundationApi::class
+)
 
 package com.velosobr.auth.presentation.login
 
@@ -57,18 +59,14 @@ fun LoginScreenRoot(
             is LoginEvent.Error -> {
                 keyboardController?.hide()
                 Toast.makeText(
-                    context,
-                    event.error.asString(context),
-                    Toast.LENGTH_LONG
+                    context, event.error.asString(context), Toast.LENGTH_LONG
                 ).show()
             }
 
             LoginEvent.LoginSuccess -> {
                 keyboardController?.hide()
                 Toast.makeText(
-                    context,
-                    R.string.login_success,
-                    Toast.LENGTH_LONG
+                    context, R.string.login_success, Toast.LENGTH_LONG
                 ).show()
 
                 onLoginSuccess()
@@ -92,7 +90,7 @@ private fun LoginScreen(
 ) {
 
     GradientBackground {
-        Box (
+        Box(
             modifier = Modifier.fillMaxSize()
         ) {
             Column(
@@ -148,13 +146,13 @@ private fun LoginScreen(
                 Spacer(modifier = Modifier.height(16.dp))
 
 
-
             }
             Row(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
-                    .padding(bottom = 16.dp
-
+                    .padding(
+                        bottom = 16.dp,
+                    )
             ) {
                 Text(
                     text = stringResource(id = R.string.dont_have_an_account) + " ",
@@ -183,7 +181,6 @@ private fun LoginScreen(
                     ).firstOrNull()?.let {
                         onAction(LoginAction.OnSignUpClick)
                     }
-
                 })
             }
         }
@@ -195,9 +192,6 @@ private fun LoginScreen(
 @Composable
 private fun LoginScreenPreview() {
     GoRunTheme {
-        LoginScreen(
-            state = LoginState(),
-            onAction = {}
-        )
+        LoginScreen(state = LoginState(), onAction = {})
     }
 }
