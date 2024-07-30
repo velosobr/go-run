@@ -23,6 +23,6 @@ class AuthRepositoryImpl(
         email: String,
         password: String
     ): EmptyResult<DataError.NetworkError> {
-        TODO("Not yet implemented")
+        val result = httpClient.post<LoginRequest, LoginResponse>()
     }
 }
