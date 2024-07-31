@@ -1,7 +1,11 @@
 package com.velosobr.gorun
 
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -20,6 +24,7 @@ fun NavigationRoot(
         startDestination = "auth"
     ) {
         authGraph(navController)
+        runGraph(navController)
     }
 }
 
@@ -79,7 +84,21 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
 
 
 
-
+private fun NavGraphBuilder.runGraph(navController: NavHostController) {
+    navigation(
+        startDestination = "run_overview",
+        route = "run"
+    ) {
+        composable(route = "run_overview") {
+            Box(modifier = Modifier.fillMaxSize()) {
+                Text(
+                    text = "run overview",
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+        }
+    }
+}
 
 
 

@@ -11,16 +11,20 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.velosobr.auth.domain.AuthRepository
 import com.velosobr.auth.domain.UserDataValidator
+import com.velosobr.auth.presentation.R
+import com.velosobr.core.domain.util.DataError
+import com.velosobr.core.domain.util.Result
+import com.velosobr.core.presentation.ui.UiText
+import com.velosobr.core.presentation.ui.asUiText
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 
 
 class LoginViewModel(
-    private val userDataValidator: UserDataValidator,
-    private val authRepository: AuthRepository
+    private val userDataValidator: UserDataValidator, private val authRepository: AuthRepository
 ) : ViewModel() {
 
     var state by mutableStateOf(LoginState())
@@ -30,19 +34,14 @@ class LoginViewModel(
     val events = eventChannel.receiveAsFlow()
 
     init {
-        state.email.textAsFlow().onEach { email ->
-            val isValidEmail = userDataValidator.isValidEmail(email.toString())
+        combine(
+            state.email.textAsFlow(), state.password.textAsFlow()
+        ) { email, password ->
             state = state.copy(
-                isEmailValid = isValidEmail,
-                canLogin = isValidEmail && state.passwordValidationState.isValidPassword && !state.isLoggingIn
-            )
-        }.launchIn(viewModelScope)
+                canLogin = userDataValidator.isValidEmail(
+                    email = email.toString().trim()
+                ) && password.isNotEmpty()
 
-        state.password.textAsFlow().onEach { password ->
-            val passwordValidationState = userDataValidator.validatePassword(password.toString())
-            state = state.copy(
-                passwordValidationState = passwordValidationState,
-                canLogin = state.isEmailValid && passwordValidationState.isValidPassword && !state.isLoggingIn
             )
         }.launchIn(viewModelScope)
     }
@@ -65,10 +64,21 @@ class LoginViewModel(
         viewModelScope.launch {
             state = state.copy(isLoggingIn = true)
             val result = authRepository.login(
-                state.email.text.toString(),
-                state.password.text.toString()
+                email = state.email.text.toString().trim(),
+                password = state.password.text.toString()
             )
             state = state.copy(isLoggingIn = false)
+
+            when (result) {
+                is Result.Success -> eventChannel.send(LoginEvent.LoginSuccess)
+                is Result.Error -> {
+                    if (result.error == DataError.NetworkError.UNAUTHORIZED) {
+                        eventChannel.send(LoginEvent.Error(UiText.StringResource(R.string.error_email_password_incorrect)))
+                    } else {
+                        eventChannel.send(LoginEvent.Error(result.error.asUiText()))
+                    }
+                }
+            }
         }
     }
 }
