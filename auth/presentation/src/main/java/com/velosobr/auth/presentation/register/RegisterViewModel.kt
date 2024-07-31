@@ -1,8 +1,4 @@
-@file:OptIn(
-    ExperimentalFoundationApi::class,
-    ExperimentalFoundationApi::class, ExperimentalFoundationApi::class,
-    ExperimentalFoundationApi::class
-)
+@file:OptIn(ExperimentalFoundationApi::class, ExperimentalFoundationApi::class)
 
 package com.velosobr.auth.presentation.register
 
@@ -52,16 +48,20 @@ class RegisterViewModel(
         }.launchIn(viewModelScope)
     }
 
+    private fun login() {
+        TODO("Not yet implemented")
+    }
+
     fun onAction(action: RegisterAction) {
-        when(action) {
+        when (action) {
             is RegisterAction.OnRegisterClick -> register()
-            is RegisterAction.OnTogglePasswordVisibilityClick ->
+            is RegisterAction.OnTogglePasswordVisibilityClick -> {
                 state = state.copy(
                     isPasswordVisible = !state.isPasswordVisible
                 )
+            }
+
             else -> Unit
-
-
         }
     }
 
@@ -70,28 +70,22 @@ class RegisterViewModel(
         viewModelScope.launch {
             state = state.copy(isRegistering = true)
             val result = authRepository.register(
-                email = state.email.toString().trim(),
-                password = state.password.toString(),
-
-                )
+                email = state.email.text.toString(),
+                password = state.password.text.toString(),
+            )
             state = state.copy(isRegistering = false)
-
             when (result) {
                 is Result.Success -> {
                     eventChannel.send(RegisterEvent.RegistrationSuccess)
                 }
 
                 is Result.Error -> {
-                    if (result.error == DataError.NetworkError.CONFLICT)
-                        eventChannel.send(RegisterEvent.Error(UiText.StringResource(R.string.error_email_already_registered)))
-                    else
-                        eventChannel.send(RegisterEvent.Error(result.error.asUiText()))
-
+                    if (result.error == DataError.NetworkError.CONFLICT) eventChannel.send(
+                        RegisterEvent.Error(UiText.StringResource(R.string.error_email_already_registered))
+                    )
+                    else eventChannel.send(RegisterEvent.Error(result.error.asUiText()))
                 }
             }
-
-
         }
     }
-
 }
