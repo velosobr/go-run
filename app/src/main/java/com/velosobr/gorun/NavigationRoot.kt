@@ -17,11 +17,12 @@ import com.velosobr.auth.presentation.register.RegisterScreenRoot
 
 @Composable
 fun NavigationRoot(
-    navController: NavHostController
+    navController: NavHostController,
+    isLoggedIn: Boolean
 ) {
     NavHost(
         navController = navController,
-        startDestination = "auth"
+        startDestination = if (isLoggedIn) "run" else "auth"
     ) {
         authGraph(navController)
         runGraph(navController)
@@ -72,16 +73,8 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
                 }
             )
         }
-        composable(route = "run") {
-            Text("Run")
-        }
     }
 }
-
-
-
-
-
 
 
 private fun NavGraphBuilder.runGraph(navController: NavHostController) {
@@ -93,7 +86,8 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
             Box(modifier = Modifier.fillMaxSize()) {
                 Text(
                     text = "run overview",
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier
+                        .align(Alignment.Center)
                 )
             }
         }
