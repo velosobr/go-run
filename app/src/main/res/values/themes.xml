@@ -2,12 +2,6 @@
 <resources>
 
     <style name="Theme.GoRun" parent="android:Theme.Material.Light.NoActionBar">
-
-
-        <item name="android:windowFullscreen">true</item>
-        <!--    <item name="android:windowContentOverlay">@null</item>-->
-        <!--    <item name="android:windowIsTranslucent">false</item>-->
-        <!--    <item name="android:windowTranslucentNavigation">false</item>-->
-        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
     </style>
 </resources>
