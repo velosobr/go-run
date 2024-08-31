@@ -2,14 +2,17 @@
 
 package com.velosobr.core.presentation.designsystem.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -88,6 +91,30 @@ fun GoRunToolbar(
         actions = {
             if (menuItems.isNotEmpty()) {
                 Box {
+                    DropdownMenu(
+                        expanded = isDropDownOpen,
+                        onDismissRequest = {
+                            isDropDownOpen = false
+                        }
+                    ) {
+                        menuItems.forEachIndexed { index, item ->
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier
+                                    .clickable { onMenuItemClick(index) }
+                                    .fillMaxWidth()
+                                    .padding(16.dp)
+                            ) {
+                                Icon(
+                                    imageVector = item.icon,
+                                    contentDescription = item.title
+                                )
+                                Spacer(modifier = Modifier.width(8.dp))
+                                Text(text = item.title)
+                            }
+
+                        }
+                    }
                     IconButton(onClick = {
                         isDropDownOpen = true
                     }) {
