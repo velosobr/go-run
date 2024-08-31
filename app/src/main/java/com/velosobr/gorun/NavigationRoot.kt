@@ -1,11 +1,6 @@
 package com.velosobr.gorun
 
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -14,6 +9,7 @@ import androidx.navigation.navigation
 import com.velosobr.auth.presentation.intro.IntroScreenRoot
 import com.velosobr.auth.presentation.login.LoginScreenRoot
 import com.velosobr.auth.presentation.register.RegisterScreenRoot
+import com.velosobr.run.presentation.run_overview.RunOverviewRoot
 
 @Composable
 fun NavigationRoot(
@@ -83,31 +79,7 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
         route = "run"
     ) {
         composable(route = "run_overview") {
-            Box(modifier = Modifier.fillMaxSize()) {
-                Text(
-                    text = "run overview",
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                )
-            }
+            RunOverviewRoot()
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -5,6 +5,7 @@ import com.velosobr.auth.data.di.authDataModule
 import com.velosobr.auth.presentation.di.authViewModelModule
 import com.velosobr.core.data.di.coreDataModule
 import com.velosobr.gorun.di.appModule
+import com.velosobr.run.presentation.di.runViewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -27,6 +28,7 @@ class GoRunApp: Application(){
                 authViewModelModule,
                 appModule,
                 coreDataModule,
+                runViewModelModule,
             )
         }
 
