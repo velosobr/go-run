@@ -58,7 +58,7 @@ private fun BuildType.configureDebugBuildType(apiKey: String) {
     buildConfigField(
         type = "String",
         name = "BASE_URL",
-        value = "\"https://runique.pl-coding.com:8080\""
+        value = "\"http://192.168.0.8:8080\""
     )
 }
 
