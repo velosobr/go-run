@@ -21,7 +21,7 @@ The project is structured into several modules:
 - `core`: This module contains the design system and shared components used across the application.
 - `auth`: This module handles the authentication part of the application, including sign in and sign up.
 
-## Design System
+## System Design
 Koin 
 - `Koin` is a dependency injection framework for Kotlin. It is used to manage dependencies in the application.
 
