@@ -3,7 +3,7 @@ package com.velosobr.core.presentation.designsystem
 import androidx.compose.ui.graphics.Color
 
 
-val GorunBlue = Color(0xFF2855E0)
+val GorunBlue = Color(0xFF315EFF )
 val GorunBlue30 = Color(0x4D2855E0)
 val GorunBlue10 = Color(0x1A3949AB)
 val GorunBlue5 = Color(0x0D3949AB)
